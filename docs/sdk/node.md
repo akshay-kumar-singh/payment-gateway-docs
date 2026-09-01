@@ -4,18 +4,18 @@ title: Node.js — paywize-pg
 sidebar_position: 1
 ---
 
-# paywize-dummy-pg
+# payment-gateway-node-sdk
 
 The server SDK. Runs on Node 18+. ESM and CommonJS, with TypeScript types included.
 
 ```bash
-npm install paywize-dummy-pg
+npm install payment-gateway-node-sdk
 ```
 
 ## Setup
 
 ```js
-import { Paywize } from 'paywize-dummy-pg';
+import { Paywize } from 'payment-gateway-node-sdk';
 
 const paywize = new Paywize({
   clientId: process.env.PAYWIZE_CLIENT_ID,
@@ -99,7 +99,7 @@ const event = paywize.webhooks.verify(
 Every non-2xx throws a `PaywizeError`.
 
 ```js
-import { PaywizeError } from 'paywize-dummy-pg';
+import { PaywizeError } from 'payment-gateway-node-sdk';
 
 try {
   await paywize.orders.create({ /* ... */ });
@@ -122,5 +122,5 @@ Call `orders.fetch()` before assuming anything or retrying a charge.
 Types ship with the package; no `@types` install needed.
 
 ```ts
-import { Paywize, type Order, type PaywizeError } from 'paywize-dummy-pg';
+import { Paywize, type Order, type PaywizeError } from 'payment-gateway-node-sdk';
 ```

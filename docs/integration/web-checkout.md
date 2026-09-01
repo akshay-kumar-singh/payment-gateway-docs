@@ -69,3 +69,22 @@ function InlineCheckout({ paymentSessionId }) {
 **`_modal`.** The customer never leaves your site, you get a promise, and you keep
 control of what happens next. Use `_self` only when a popup blocker is a real concern —
 some in-app browsers block them.
+
+## Domain whitelisting
+
+Register every domain that will open the checkout, in the dashboard. This is enforced
+by the browser, not just by us:
+
+```
+Content-Security-Policy: frame-ancestors 'self' https://yoursite.com
+```
+
+An origin you never registered **cannot render the checkout at all** — the browser
+refuses to create the frame before any JavaScript runs. That means a leaked
+`paymentSessionId` is useless from someone else's website.
+
+:::tip Blank checkout in development?
+You forgot to whitelist the origin. Check the browser console for a
+`frame-ancestors` violation. Remember `http://localhost:3000` and
+`http://127.0.0.1:3000` are different origins — register both if you use both.
+:::

@@ -4,26 +4,26 @@ title: Browser — paywize-js
 sidebar_position: 2
 ---
 
-# paywize-dummy-js
+# payment-gateway-browser-sdk
 
 The browser SDK. **1.3 KB gzipped**, zero dependencies. It holds nothing secret.
 
 ## Install
 
 ```bash
-npm install paywize-dummy-js
+npm install payment-gateway-browser-sdk
 ```
 
 Or drop in a script tag — no bundler needed:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/paywize-dummy-js@1/dist/paywize.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/payment-gateway-browser-sdk@1/dist/paywize.min.js"></script>
 ```
 
 ## `load(options)`
 
 ```js
-import { load } from 'paywize-dummy-js';
+import { load } from 'payment-gateway-browser-sdk';
 
 const paywize = await load({ mode: 'sandbox' });   // or 'production'
 ```
@@ -71,7 +71,7 @@ before you ship anything.
 ## Script tag usage
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/paywize-dummy-js@1/dist/paywize.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/payment-gateway-browser-sdk@1/dist/paywize.min.js"></script>
 <script>
   document.getElementById('pay').addEventListener('click', async () => {
     const res = await fetch('/api/checkout/start', { method: 'POST' });
@@ -87,7 +87,7 @@ before you ship anything.
 
 ```jsx
 import { useState } from 'react';
-import { load } from 'paywize-dummy-js';
+import { load } from 'payment-gateway-browser-sdk';
 
 export function PayButton({ productId }) {
   const [busy, setBusy] = useState(false);

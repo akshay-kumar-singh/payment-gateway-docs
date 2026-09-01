@@ -23,8 +23,8 @@ That is it. Everything else in these docs is detail on those three steps.
 ## Two packages
 
 ```bash
-npm install paywize-dummy-pg    # your server — holds the secret key
-npm install paywize-dummy-js    # your web page — holds nothing secret
+npm install payment-gateway-node-sdk    # your server — holds the secret key
+npm install payment-gateway-browser-sdk    # your web page — holds nothing secret
 ```
 
 :::danger Never put the secret key in browser code

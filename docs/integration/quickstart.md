@@ -13,7 +13,7 @@ A working payment in about ten minutes.
 This call needs your secret key, so it must run on your server. Never call it from a browser.
 
 ```js title="server.js"
-import { Paywize } from 'paywize-dummy-pg';
+import { Paywize } from 'payment-gateway-node-sdk';
 
 const paywize = new Paywize({
   clientId: process.env.PAYWIZE_CLIENT_ID,
@@ -52,7 +52,7 @@ rupee. Send a product id; look the price up yourself.
 ## Step 2 — Open the checkout (client-side)
 
 ```jsx title="PayButton.jsx"
-import { load } from 'paywize-dummy-js';
+import { load } from 'payment-gateway-browser-sdk';
 
 export function PayButton({ productId }) {
   async function pay() {

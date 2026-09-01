@@ -8,17 +8,17 @@ sidebar_position: 1
 
 Paywize ships two packages. They do opposite jobs and must never be swapped.
 
-| | `paywize-dummy-pg` | `paywize-dummy-js` |
+| | `payment-gateway-node-sdk` | `payment-gateway-browser-sdk` |
 |---|---|---|
 | Runs on | Your **server** | Your **web page** |
 | Holds the secret key | Yes | **Never** |
 | Job | Call the REST API | Open the checkout |
-| Install | `npm i paywize-dummy-pg` | `npm i paywize-dummy-js` or a `<script>` tag |
+| Install | `npm i payment-gateway-node-sdk` | `npm i payment-gateway-browser-sdk` or a `<script>` tag |
 | Size | ~6 KB | **1.3 KB** gzipped |
 
 ```bash
-npm install paywize-dummy-pg    # server
-npm install paywize-dummy-js    # browser
+npm install payment-gateway-node-sdk    # server
+npm install payment-gateway-browser-sdk    # browser
 ```
 
 ## Why two
