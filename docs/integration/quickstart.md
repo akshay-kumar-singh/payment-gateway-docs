@@ -13,11 +13,11 @@ A working payment in about ten minutes.
 This call needs your secret key, so it must run on your server. Never call it from a browser.
 
 ```js title="server.js"
-import { Paywize } from 'payment-gateway-node-sdk';
+import { PaymentGateway } from 'payment-gateway-node-sdk';
 
-const paywize = new Paywize({
-  clientId: process.env.PAYWIZE_CLIENT_ID,
-  clientSecret: process.env.PAYWIZE_CLIENT_SECRET,
+const gateway = new PaymentGateway({
+  clientId: process.env.PG_CLIENT_ID,
+  clientSecret: process.env.PG_CLIENT_SECRET,
   environment: 'sandbox',
 });
 
@@ -28,7 +28,7 @@ app.post('/api/checkout/start', async (req, res) => {
   const amount = PRODUCTS[req.body.productId];
   if (!amount) return res.status(400).json({ error: 'Unknown product' });
 
-  const order = await paywize.orders.create({
+  const order = await gateway.orders.create({
     orderAmount: amount,
     orderCurrency: 'INR',
     customerDetails: {
@@ -62,8 +62,8 @@ export function PayButton({ productId }) {
       body: JSON.stringify({ productId }),
     }).then((r) => r.json());
 
-    const paywize = await load({ mode: 'sandbox' });
-    await paywize.checkout({ paymentSessionId, redirectTarget: '_modal' });
+    const gateway = await load({ mode: 'sandbox' });
+    await gateway.checkout({ paymentSessionId, redirectTarget: '_modal' });
 
     // The popup closed. That is NOT proof of payment — confirm on your server.
     const { paid } = await fetch(`/api/checkout/status/${orderId}`).then((r) => r.json());
@@ -78,7 +78,7 @@ export function PayButton({ productId }) {
 
 ```js title="server.js"
 app.get('/api/checkout/status/:orderId', async (req, res) => {
-  const order = await paywize.orders.fetch(req.params.orderId);
+  const order = await gateway.orders.fetch(req.params.orderId);
   res.json({ paid: order.orderStatus === 'PAID' });
 });
 ```
@@ -90,5 +90,5 @@ sees `orderStatus === 'PAID'`, or a **signed webhook** says so.
 
 ## Test it
 
-Use `success@paywize` as the UPI ID, or card `4111 1111 1111 1111`. See
+Use `success@pgtest` as the UPI ID, or card `4111 1111 1111 1111`. See
 [test instruments](/integration/testing) for every failure you can reproduce.

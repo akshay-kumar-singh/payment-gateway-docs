@@ -28,12 +28,12 @@ Any future expiry and any CVV work.
 
 | UPI ID | Outcome |
 |---|---|
-| `success@paywize` | Pending, then succeeds after ~5 seconds |
-| `failure@paywize` | Customer declines |
-| `timeout@paywize` | Never approved — tests your timeout handling |
-| `invalid@paywize` | UPI ID does not exist |
+| `success@pgtest` | Pending, then succeeds after ~5 seconds |
+| `failure@pgtest` | Customer declines |
+| `timeout@pgtest` | Never approved — tests your timeout handling |
+| `invalid@pgtest` | UPI ID does not exist |
 
-`success@paywize` deliberately spends time in `PENDING`. Real UPI does the same, and it
+`success@pgtest` deliberately spends time in `PENDING`. Real UPI does the same, and it
 is the state most integrations get wrong.
 
 ## Net banking and wallets

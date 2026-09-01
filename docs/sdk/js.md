@@ -1,6 +1,6 @@
 ---
 id: js
-title: Browser — paywize-js
+title: Browser — payment-gateway-browser-sdk
 sidebar_position: 2
 ---
 
@@ -17,7 +17,7 @@ npm install payment-gateway-browser-sdk
 Or drop in a script tag — no bundler needed:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/payment-gateway-browser-sdk@1/dist/paywize.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/payment-gateway-browser-sdk@1/dist/payment-gateway.min.js"></script>
 ```
 
 ## `load(options)`
@@ -25,21 +25,21 @@ Or drop in a script tag — no bundler needed:
 ```js
 import { load } from 'payment-gateway-browser-sdk';
 
-const paywize = await load({ mode: 'sandbox' });   // or 'production'
+const gateway = await load({ mode: 'sandbox' });   // or 'production'
 ```
 
 Returns `null` on the server, so importing it in Next.js or Remix will not crash your
 build. Guard for it:
 
 ```js
-const paywize = await load({ mode: 'sandbox' });
-if (!paywize) return;      // running server-side
+const gateway = await load({ mode: 'sandbox' });
+if (!gateway) return;      // running server-side
 ```
 
 ## `checkout(options)`
 
 ```js
-const result = await paywize.checkout({
+const result = await gateway.checkout({
   paymentSessionId,           // required — from your server
   redirectTarget: '_modal',   // '_self' | '_blank' | '_top' | '_modal' | HTMLElement
   returnUrl,                  // optional; overrides the order's
@@ -71,14 +71,14 @@ before you ship anything.
 ## Script tag usage
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/payment-gateway-browser-sdk@1/dist/paywize.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/payment-gateway-browser-sdk@1/dist/payment-gateway.min.js"></script>
 <script>
   document.getElementById('pay').addEventListener('click', async () => {
     const res = await fetch('/api/checkout/start', { method: 'POST' });
     const { paymentSessionId } = await res.json();
 
-    const paywize = await Paywize.load({ mode: 'sandbox' });
-    await paywize.checkout({ paymentSessionId, redirectTarget: '_modal' });
+    const gateway = await PaymentGateway.load({ mode: 'sandbox' });
+    await gateway.checkout({ paymentSessionId, redirectTarget: '_modal' });
   });
 </script>
 ```
@@ -101,8 +101,8 @@ export function PayButton({ productId }) {
         body: JSON.stringify({ productId }),
       }).then((r) => r.json());
 
-      const paywize = await load({ mode: 'sandbox' });
-      const result = await paywize.checkout({ paymentSessionId, redirectTarget: '_modal' });
+      const gateway = await load({ mode: 'sandbox' });
+      const result = await gateway.checkout({ paymentSessionId, redirectTarget: '_modal' });
 
       if (!result.dismissed) {
         const { paid } = await fetch(`/api/checkout/status/${orderId}`).then((r) => r.json());

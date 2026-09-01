@@ -1,14 +1,14 @@
 ---
 id: intro
-title: Paywize Docs
+title: Introduction
 sidebar_position: 1
 slug: /
 ---
 
 # Accept payments on your website
 
-Paywize gives you a prebuilt, PCI-compliant checkout. Your customer pays on our page,
-so card details never touch your servers — and you never need a PCI audit.
+This gateway gives you a prebuilt, PCI-compliant checkout. Your customer pays on our
+page, so card details never touch your servers — and you never need a PCI audit.
 
 ## The whole integration is three steps
 
@@ -35,7 +35,7 @@ tab, rotate it immediately.
 
 ## Before you start
 
-1. Create a Paywize merchant account
+1. Create a merchant account
 2. Generate an **App ID** and **Secret Key** in the dashboard
 3. Whitelist your website domain
 

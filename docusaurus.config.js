@@ -3,10 +3,10 @@
  *  Splitting these across two sites means two deploys, two searches, and merchants
  *  bouncing between domains mid-integration. */
 const config = {
-  title: 'Paywize Docs',
+  title: 'Payment Gateway Docs',
   tagline: 'Accept payments on your website',
   favicon: 'img/favicon.ico',
-  url: 'https://docs.paywize.in',
+  url: 'https://payment-gateway-docs.netlify.app',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   markdown: { hooks: { onBrokenMarkdownLinks: 'warn' } },
@@ -17,7 +17,7 @@ const config = {
       docs: {
         routeBasePath: '/',
         sidebarPath: './sidebars.js',
-        editUrl: 'https://github.com/paywize/paywize-docs/edit/main/',
+        editUrl: 'https://github.com/akshay-kumar-singh/payment-gateway-docs/edit/main/',
       },
       blog: false,
       theme: { customCss: './src/css/custom.css' },
@@ -27,11 +27,11 @@ const config = {
   themeConfig: {
     colorMode: { defaultMode: 'light', respectPrefersColorScheme: true },
     navbar: {
-      title: 'Paywize',
+      title: 'Payment Gateway',
       items: [
         { type: 'docSidebar', sidebarId: 'integration', position: 'left', label: 'Integration' },
         { type: 'docSidebar', sidebarId: 'sdk', position: 'left', label: 'SDK Reference' },
-        { href: 'https://github.com/paywize', label: 'GitHub', position: 'right' },
+        { href: 'https://github.com/akshay-kumar-singh/payment-gateway-docs', label: 'GitHub', position: 'right' },
       ],
     },
     footer: {
@@ -47,7 +47,7 @@ const config = {
           { label: 'Browser JS', to: '/sdk/js' },
         ]},
       ],
-      copyright: `© ${new Date().getFullYear()} Paywize Technologies Private Limited`,
+      copyright: `A test payment gateway. Not a real payment processor.`,
     },
     prism: { additionalLanguages: ['bash', 'json'] },
   },

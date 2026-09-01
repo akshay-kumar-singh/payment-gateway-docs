@@ -21,19 +21,19 @@ One parameter — `redirectTarget` — decides how the checkout appears.
 The page navigates away. Handle the result at your `returnUrl`.
 
 ```js
-const paywize = await load({ mode: 'sandbox' });
-paywize.checkout({ paymentSessionId, redirectTarget: '_self' });
+const gateway = await load({ mode: 'sandbox' });
+gateway.checkout({ paymentSessionId, redirectTarget: '_self' });
 // nothing after this line runs — the browser has left
 ```
 
-Paywize appends `order_id` and `payment_status` to your return URL.
+The gateway appends `order_id` and `payment_status` to your return URL.
 
 ## Popup
 
 The page stays. You **must** handle the promise.
 
 ```js
-const result = await paywize.checkout({ paymentSessionId, redirectTarget: '_modal' });
+const result = await gateway.checkout({ paymentSessionId, redirectTarget: '_modal' });
 
 if (result.dismissed) {
   // customer closed the popup without paying
@@ -53,9 +53,9 @@ function InlineCheckout({ paymentSessionId }) {
 
   useEffect(() => {
     let cancelled = false;
-    load({ mode: 'sandbox' }).then((paywize) => {
+    load({ mode: 'sandbox' }).then((gateway) => {
       if (cancelled || !box.current) return;
-      paywize.checkout({ paymentSessionId, redirectTarget: box.current });
+      gateway.checkout({ paymentSessionId, redirectTarget: box.current });
     });
     return () => { cancelled = true; };
   }, [paymentSessionId]);

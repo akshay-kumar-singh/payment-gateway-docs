@@ -6,7 +6,7 @@ sidebar_position: 4
 
 # Webhooks
 
-A webhook is Paywize calling **your server** directly when something happens. It arrives
+A webhook is the gateway calling **your server** directly when something happens. It arrives
 whether or not the customer's browser survived the payment — which is why it, not the
 browser, is what you build on.
 
@@ -17,7 +17,7 @@ browser, is what you build on.
 app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
   let event;
   try {
-    event = paywize.webhooks.verify(
+    event = gateway.webhooks.verify(
       req.body,                              // the raw Buffer
       req.header('x-webhook-signature'),
       req.header('x-webhook-timestamp'),
@@ -43,7 +43,7 @@ Re-serialising it changes the bytes and **every signature fails**. Use
 :::
 
 :::danger 2. Working before acknowledging
-Paywize times out after ~5 seconds and retries. A slow handler turns one event into a
+The gateway times out after ~5 seconds and retries. A slow handler turns one event into a
 retry storm. Send `200` first, process after.
 :::
 

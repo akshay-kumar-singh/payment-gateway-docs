@@ -1,6 +1,6 @@
 ---
 id: node
-title: Node.js — paywize-pg
+title: Node.js — payment-gateway-node-sdk
 sidebar_position: 1
 ---
 
@@ -15,11 +15,11 @@ npm install payment-gateway-node-sdk
 ## Setup
 
 ```js
-import { Paywize } from 'payment-gateway-node-sdk';
+import { PaymentGateway } from 'payment-gateway-node-sdk';
 
-const paywize = new Paywize({
-  clientId: process.env.PAYWIZE_CLIENT_ID,
-  clientSecret: process.env.PAYWIZE_CLIENT_SECRET,
+const gateway = new PaymentGateway({
+  clientId: process.env.PG_CLIENT_ID,
+  clientSecret: process.env.PG_CLIENT_SECRET,
   environment: 'sandbox',      // or 'production'
   timeout: 30000,              // optional, ms
 });
@@ -28,7 +28,7 @@ const paywize = new Paywize({
 ## `orders.create(request)`
 
 ```js
-const order = await paywize.orders.create({
+const order = await gateway.orders.create({
   orderAmount: 499,                    // rupees; converted to paise on the wire
   orderCurrency: 'INR',
   customerDetails: {
@@ -54,7 +54,7 @@ order instead of creating a second one.
 ## `orders.fetch(orderId)`
 
 ```js
-const order = await paywize.orders.fetch('order_abc');
+const order = await gateway.orders.fetch('order_abc');
 if (order.orderStatus === 'PAID') { /* safe to ship */ }
 ```
 
@@ -63,20 +63,20 @@ if (order.orderStatus === 'PAID') { /* safe to ship */ }
 Every attempt against an order, including failed ones.
 
 ```js
-const attempts = await paywize.orders.payments('order_abc');
+const attempts = await gateway.orders.payments('order_abc');
 // [{ paymentId, paymentStatus, paymentMethod, paymentMessage, errorCode }]
 ```
 
 ## `payments.fetch(paymentId)`
 
 ```js
-const payment = await paywize.payments.fetch('pay_abc');
+const payment = await gateway.payments.fetch('pay_abc');
 ```
 
 ## `refunds.create(orderId, options)`
 
 ```js
-const refund = await paywize.refunds.create('order_abc', {
+const refund = await gateway.refunds.create('order_abc', {
   refundAmount: 499,             // omit for a full refund
   refundNote: 'Customer request',
 });
@@ -87,7 +87,7 @@ const refund = await paywize.refunds.create('order_abc', {
 Throws on a bad signature; returns the parsed event otherwise.
 
 ```js
-const event = paywize.webhooks.verify(
+const event = gateway.webhooks.verify(
   req.body,                              // RAW Buffer, not parsed JSON
   req.header('x-webhook-signature'),
   req.header('x-webhook-timestamp'),
@@ -96,15 +96,15 @@ const event = paywize.webhooks.verify(
 
 ## Errors
 
-Every non-2xx throws a `PaywizeError`.
+Every non-2xx throws a `PaymentGatewayError`.
 
 ```js
-import { PaywizeError } from 'payment-gateway-node-sdk';
+import { PaymentGatewayError } from 'payment-gateway-node-sdk';
 
 try {
-  await paywize.orders.create({ /* ... */ });
+  await gateway.orders.create({ /* ... */ });
 } catch (err) {
-  if (err instanceof PaywizeError) {
+  if (err instanceof PaymentGatewayError) {
     err.code;        // 'INVALID_AMOUNT', 'AUTH_FAILED', 'NETWORK_ERROR', 'TIMEOUT'
     err.statusCode;  // 400, 401, … or 0 if the request never left
     err.requestId;   // quote this to support
@@ -122,5 +122,5 @@ Call `orders.fetch()` before assuming anything or retrying a charge.
 Types ship with the package; no `@types` install needed.
 
 ```ts
-import { Paywize, type Order, type PaywizeError } from 'payment-gateway-node-sdk';
+import { PaymentGateway, type Order, type PaymentGatewayError } from 'payment-gateway-node-sdk';
 ```

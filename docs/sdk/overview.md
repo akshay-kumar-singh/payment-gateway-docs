@@ -6,7 +6,7 @@ sidebar_position: 1
 
 # SDKs
 
-Paywize ships two packages. They do opposite jobs and must never be swapped.
+There are two packages. They do opposite jobs and must never be swapped.
 
 | | `payment-gateway-node-sdk` | `payment-gateway-browser-sdk` |
 |---|---|---|
@@ -24,7 +24,7 @@ npm install payment-gateway-browser-sdk    # browser
 ## Why two
 
 The secret key can create charges and issue refunds. It must stay on your server. The
-browser package holds nothing secret — it only opens a page on Paywize's domain, where
+browser package holds nothing secret — it only opens a page on the gateway's domain, where
 the customer types their card. That separation is what keeps card data off your servers
 and you out of PCI-DSS scope.
 
@@ -34,7 +34,7 @@ Everything is plain HTTPS. The SDKs just save you writing authentication, retrie
 timeouts, error types and signature verification by hand.
 
 ```bash
-curl https://sandbox-api.paywize.in/pg/orders \
+curl https://payment-gateway-api-1juk.onrender.com/pg/orders \
   -H "x-client-id: $CLIENT_ID" \
   -H "x-client-secret: $CLIENT_SECRET" \
   -H "Content-Type: application/json" \

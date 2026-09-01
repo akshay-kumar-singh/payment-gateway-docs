@@ -22,7 +22,7 @@ Three signals can tell you a payment happened. They are **not** equally trustwor
 
 ```js
 app.get('/api/checkout/status/:orderId', async (req, res) => {
-  const order = await paywize.orders.fetch(req.params.orderId);
+  const order = await gateway.orders.fetch(req.params.orderId);
 
   if (order.orderStatus === 'PAID') {
     await fulfilOnce(order.orderId);    // idempotent — see below
