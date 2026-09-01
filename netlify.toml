@@ -1,0 +1,14 @@
+# Netlify picks these up automatically, so the dashboard needs no manual setup.
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Docusaurus emits real .html files for every route, so no SPA fallback is needed.
+# This only catches genuinely unknown paths.
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
