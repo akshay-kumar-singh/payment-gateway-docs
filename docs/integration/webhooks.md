@@ -10,6 +10,20 @@ A webhook is the gateway calling **your server** directly when something happens
 whether or not the customer's browser survived the payment — which is why it, not the
 browser, is what you build on.
 
+
+:::warning Webhooks and the hosted sandbox
+The hosted sandbox cannot reach a webhook endpoint running on your laptop — it has no
+route to `localhost`. To receive webhooks you have two options:
+
+- **Run the gateway locally** and point it at your app:
+  `MERCHANT_WEBHOOK_URL=http://localhost:4000/webhook npm start`
+- **Expose your local endpoint** with a tunnel (ngrok, cloudflared) and run the gateway
+  yourself with `MERCHANT_WEBHOOK_URL` set to the public tunnel URL.
+
+Everything else in the integration — orders, checkout, confirming a payment — works
+against the hosted sandbox with no setup.
+:::
+
 ## Setup
 
 ```js title="server.js"

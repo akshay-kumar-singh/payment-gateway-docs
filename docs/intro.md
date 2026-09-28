@@ -35,11 +35,36 @@ tab, rotate it immediately.
 
 ## Before you start
 
-1. Create a merchant account
-2. Generate an **App ID** and **Secret Key** in the dashboard
-3. Whitelist your website domain
+There is no signup and no dashboard. This is a sandbox gateway built to demonstrate how
+a real one works, so it ships with one seeded test merchant. Use these credentials:
 
-Test keys work the moment you sign up — you can finish the whole integration while your
-KYC is still being reviewed.
+```bash title=".env"
+PG_CLIENT_ID=TEST_clientid_demo
+PG_CLIENT_SECRET=pgsk_TEST_secret_demo_00000000
+```
+
+The hosted sandbox lives at `https://payment-gateway-api-1juk.onrender.com` and both
+SDKs point at it by default, so `npm install` and these two values are all you need.
+
+:::info These keys are public on purpose
+They move no real money. Publishing sandbox credentials is normal — it is how you try an
+integration before committing to it. The warning above still applies to *real* secrets.
+:::
+
+### Two things to know
+
+**The sandbox sleeps.** It is on a free host, so the first request after a quiet spell
+can take 30–60 seconds while it wakes up. Every request after that is fast.
+
+**Your origin must be allowed.** The checkout is framed, and the gateway sets
+`frame-ancestors`, so it will refuse to open on an origin it does not recognise.
+`localhost:5173` and `localhost:3000` work out of the box. For anything else — a
+different port, a deployed site — run the gateway yourself and set `ALLOWED_ORIGINS`:
+
+```bash
+ALLOWED_ORIGINS=https://yoursite.com npm start
+# or, for local experimenting only
+ALLOWED_ORIGINS=* npm start
+```
 
 [Start with the quickstart →](/integration/quickstart)

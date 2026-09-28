@@ -8,6 +8,18 @@ sidebar_position: 1
 
 A working payment in about ten minutes.
 
+:::tip Credentials
+Use the seeded sandbox merchant — there is no signup:
+
+```bash title=".env"
+PG_CLIENT_ID=TEST_clientid_demo
+PG_CLIENT_SECRET=pgsk_TEST_secret_demo_00000000
+```
+
+Serve your frontend on `localhost:5173` or `localhost:3000`, or the framed checkout will
+refuse to open. [Why →](/#before-you-start)
+:::
+
 ## Step 1 — Create an order (server-side)
 
 This call needs your secret key, so it must run on your server. Never call it from a browser.
