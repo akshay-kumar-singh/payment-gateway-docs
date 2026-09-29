@@ -3,7 +3,7 @@ const sidebars = {
   integration: [
     'intro',
     { type: 'category', label: 'Get started', collapsed: false,
-      items: ['integration/quickstart', 'integration/web-checkout'] },
+      items: ['integration/quickstart', 'integration/web-checkout', 'integration/frameworks'] },
     { type: 'category', label: 'Confirm the payment', collapsed: false,
       items: ['integration/confirm', 'integration/webhooks'] },
     'integration/testing',

@@ -40,3 +40,25 @@ curl https://payment-gateway-api-1juk.onrender.com/pg/orders \
   -H "Content-Type: application/json" \
   -d '{"order_amount_paise":49900,"customer_details":{"customer_id":"c1","customer_phone":"9999999999"}}'
 ```
+
+## Other languages
+
+Node is the only server SDK we publish today. Every endpoint is described in an
+[OpenAPI 3.1 spec](https://github.com/akshay-kumar-singh/payment-gateway-api/blob/main/openapi.yaml),
+so you can generate a typed client for your own language instead of waiting for us.
+
+```bash
+# Python
+openapi-python-client generate --path openapi.yaml
+
+# PHP, Java, Go, Ruby, C#, and 40-odd others
+openapi-generator-cli generate -i openapi.yaml -g php -o ./sdk-php
+```
+
+A generated client covers authentication, request bodies and typed responses. Two things
+it will **not** give you, because they are not part of the HTTP surface:
+
+- **Webhook signature verification.** That is HMAC-SHA256 over the raw request body —
+  see [Webhooks](../integration/webhooks.md) for the algorithm.
+- **Retries.** Add your own: retry only on a network error, a `429`, or a `5xx`, and retry
+  a write only when you are sending the same idempotency key.
